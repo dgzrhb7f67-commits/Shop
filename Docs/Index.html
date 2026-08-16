@@ -1,0 +1,1049 @@
+DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GEAEXSMP | Lifesteal Donations</title>
+
+  <meta
+    name="description"
+    content="Support GEAEXSMP Lifesteal SMP with a donation."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --background: #06090d;
+      --card: #0d131a;
+      --card2: #111a22;
+      --green: #35ff72;
+      --green-dark: #18b94e;
+      --text: #f5f7f8;
+      --muted: #8d9aa5;
+      --border: rgba(53, 255, 114, 0.18);
+      --danger: #ff465a;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(53, 255, 114, 0.18),
+          transparent 38%
+        ),
+        linear-gradient(180deg, #080d12 0%, #040608 100%);
+      color: var(--text);
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.055;
+
+      background-image:
+        linear-gradient(90deg, white 1px, transparent 1px),
+        linear-gradient(white 1px, transparent 1px);
+
+      background-size: 48px 48px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent
+        );
+    }
+
+    header {
+      width: 100%;
+      padding: 25px 7%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      position: relative;
+      z-index: 5;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 1000;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .server-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+
+      background: var(--green);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 8px var(--green),
+        0 0 18px rgba(53, 255, 114, 0.6);
+    }
+
+    main {
+      width: min(950px, 92%);
+      margin: 65px auto 100px;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .badge {
+      display: inline-block;
+
+      padding: 8px 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      background: rgba(53, 255, 114, 0.06);
+
+      color: var(--green);
+
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 1.6px;
+
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 0.95;
+
+      font-weight: 1000;
+      letter-spacing: -4px;
+    }
+
+    h1 span {
+      color: var(--green);
+
+      text-shadow:
+        0 0 20px rgba(53, 255, 114, 0.25),
+        0 0 50px rgba(53, 255, 114, 0.1);
+    }
+
+    .hero-description {
+      max-width: 620px;
+
+      margin: 22px auto 0;
+
+      color: var(--muted);
+
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .donation-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(17, 26, 34, 0.95),
+          rgba(8, 13, 18, 0.95)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.5),
+        inset 0 1px rgba(255, 255, 255, 0.025);
+
+      backdrop-filter: blur(15px);
+    }
+
+    .section {
+      margin-bottom: 27px;
+    }
+
+    .section-title {
+      margin-bottom: 10px;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+
+      font-size: 0.74rem;
+      font-weight: 900;
+    }
+
+    input[type="text"] {
+      width: 100%;
+
+      padding: 15px 16px;
+
+      border: 1px solid #26333d;
+      border-radius: 11px;
+
+      outline: none;
+
+      background: #080d12;
+      color: white;
+
+      font-size: 1rem;
+
+      transition: 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--green);
+
+      box-shadow:
+        0 0 0 3px rgba(53, 255, 114, 0.08);
+    }
+
+    .bnc-row {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      padding: 3px 0;
+    }
+
+    .bnc-text {
+      color: #c4cbd0;
+      font-size: 0.92rem;
+    }
+
+    .toggle {
+      width: 52px;
+      height: 30px;
+
+      position: relative;
+      display: inline-block;
+    }
+
+    .toggle input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+
+      cursor: pointer;
+
+      background: #28333c;
+
+      border-radius: 999px;
+
+      transition: 0.2s;
+    }
+
+    .slider::before {
+      content: "";
+
+      position: absolute;
+
+      width: 22px;
+      height: 22px;
+
+      top: 4px;
+      left: 4px;
+
+      background: white;
+
+      border-radius: 50%;
+
+      transition: 0.2s;
+    }
+
+    .toggle input:checked + .slider {
+      background: var(--green-dark);
+    }
+
+    .toggle input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    #discordSection {
+      display: none;
+    }
+
+    .donation-title {
+      margin-bottom: 12px;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+
+      font-size: 0.74rem;
+      font-weight: 900;
+    }
+
+    .donation-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 12px;
+    }
+
+    .donation-button {
+      border: 1px solid #293640;
+
+      border-radius: 13px;
+
+      background: #091016;
+
+      color: white;
+
+      padding: 19px 10px;
+
+      font-size: 1.15rem;
+      font-weight: 1000;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.16s,
+        border-color 0.16s,
+        background 0.16s,
+        color 0.16s,
+        box-shadow 0.16s;
+    }
+
+    .donation-button:hover {
+      transform: translateY(-3px);
+
+      border-color: var(--green);
+
+      background: rgba(53, 255, 114, 0.07);
+
+      color: var(--green);
+
+      box-shadow:
+        0 12px 35px rgba(53, 255, 114, 0.09);
+    }
+
+    .donation-button:active {
+      transform: translateY(0);
+    }
+
+    .featured {
+      border-color: rgba(53, 255, 114, 0.45);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(53, 255, 114, 0.16),
+          rgba(53, 255, 114, 0.04)
+        );
+    }
+
+    .note-box {
+      margin-top: 25px;
+
+      padding: 17px;
+
+      border: 1px solid #202c34;
+      border-radius: 12px;
+
+      background: #080d12;
+    }
+
+    .note-label {
+      margin-bottom: 8px;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+
+    #notePreview {
+      color: var(--green);
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      font-size: 0.88rem;
+
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    .instructions {
+      margin-top: 20px;
+
+      padding: 14px 16px;
+
+      border-radius: 10px;
+
+      background: rgba(53, 255, 114, 0.035);
+
+      color: var(--muted);
+
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .instructions strong {
+      color: #e3e8eb;
+    }
+
+    .error {
+      display: none;
+
+      margin-top: 15px;
+
+      padding: 12px 14px;
+
+      border: 1px solid rgba(255, 70, 90, 0.3);
+      border-radius: 9px;
+
+      background: rgba(255, 70, 90, 0.07);
+
+      color: #ff7c89;
+
+      font-size: 0.82rem;
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+
+      padding: 30px;
+
+      text-align: center;
+
+      color: #55616a;
+
+      font-size: 0.76rem;
+    }
+
+    @media (max-width: 650px) {
+
+      header {
+        padding: 21px 5%;
+      }
+
+      main {
+        margin-top: 35px;
+      }
+
+      .donation-card {
+        padding: 20px;
+      }
+
+      .donation-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .server-status {
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+
+      .donation-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .donation-button {
+        padding: 16px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      GEAEX<span>SMP</span>
+    </div>
+
+    <div class="server-status">
+      <span class="status-dot"></span>
+      Lifesteal Online
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section class="hero">
+
+      <div class="badge">
+        GEAEXSMP • LIFESTEAL SMP
+      </div>
+
+      <h1>
+        SUPPORT THE <span>SERVER.</span>
+      </h1>
+
+      <p class="hero-description">
+        Help keep GEAEXSMP alive and growing.
+        Every donation helps support the server
+        and improve the Lifesteal experience.
+      </p>
+
+    </section>
+
+
+    <section class="donation-card">
+
+      <!-- Minecraft Username -->
+
+      <div class="section">
+
+        <div class="section-title">
+          Minecraft Username
+        </div>
+
+        <input
+          id="minecraftName"
+          type="text"
+          maxlength="32"
+          placeholder="Enter your exact Minecraft username"
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <!-- BNC Toggle -->
+
+      <div class="section">
+
+        <div class="section-title">
+          Are you from BNC?
+        </div>
+
+        <div class="bnc-row">
+
+          <label class="toggle">
+
+            <input
+              id="bncToggle"
+              type="checkbox"
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+          <span class="bnc-text">
+            Yes, I'm from BNC
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Discord -->
+
+      <div
+        class="section"
+        id="discordSection"
+      >
+
+        <div class="section-title">
+          Discord Username
+        </div>
+
+        <input
+          id="discordName"
+          type="text"
+          maxlength="50"
+          placeholder="Enter your Discord username"
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <!-- Donation Amount -->
+
+      <div>
+
+        <div class="donation-title">
+          Choose Donation Amount
+        </div>
+
+        <div class="donation-grid">
+
+          <button
+            class="donation-button"
+            data-amount="5"
+          >
+            $5
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="10"
+          >
+            $10
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="15"
+          >
+            $15
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="20"
+          >
+            $20
+          </button>
+
+          <button
+            class="donation-button featured"
+            data-amount="25"
+          >
+            $25
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="30"
+          >
+            $30
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="40"
+          >
+            $40
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="50"
+          >
+            $50
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="75"
+          >
+            $75
+          </button>
+
+          <button
+            class="donation-button"
+            data-amount="100"
+          >
+            $100
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Note Preview -->
+
+      <div class="note-box">
+
+        <div class="note-label">
+          Donation Note
+        </div>
+
+        <div id="notePreview">
+          Enter your Minecraft username above.
+        </div>
+
+      </div>
+
+
+      <!-- Error -->
+
+      <div
+        class="error"
+        id="errorMessage"
+      ></div>
+
+
+      <!-- Instructions -->
+
+      <div class="instructions">
+
+        <strong>How it works:</strong>
+
+        Enter your exact Minecraft username, select whether
+        you're from BNC, then choose your donation amount.
+
+        Your donation note will automatically be copied to
+        your clipboard before Cash App opens.
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    © 2026 GEAEXSMP • Not affiliated with Mojang or Microsoft.
+  </footer>
+
+
+  <script>
+
+    const minecraftInput =
+      document.getElementById("minecraftName");
+
+    const discordInput =
+      document.getElementById("discordName");
+
+    const bncToggle =
+      document.getElementById("bncToggle");
+
+    const discordSection =
+      document.getElementById("discordSection");
+
+    const notePreview =
+      document.getElementById("notePreview");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+
+    /*
+     * Create the exact donation note.
+     */
+
+    function getDonationNote() {
+
+      const minecraft =
+        minecraftInput.value.trim();
+
+      const discord =
+        discordInput.value.trim();
+
+      let note =
+        "GEAEXSMP Donation | Minecraft: " +
+        minecraft;
+
+      if (bncToggle.checked) {
+
+        note +=
+          " | Discord: " +
+          discord;
+
+      }
+
+      return note;
+    }
+
+
+    /*
+     * Update the note preview.
+     */
+
+    function updateNote() {
+
+      const minecraft =
+        minecraftInput.value.trim();
+
+      const discord =
+        discordInput.value.trim();
+
+
+      if (!minecraft) {
+
+        notePreview.textContent =
+          "Enter your Minecraft username above.";
+
+        return;
+      }
+
+
+      if (bncToggle.checked) {
+
+        if (!discord) {
+
+          notePreview.textContent =
+            "GEAEXSMP Donation | Minecraft: " +
+            minecraft +
+            " | Discord: [enter Discord]";
+
+          return;
+        }
+
+        notePreview.textContent =
+          "GEAEXSMP Donation | Minecraft: " +
+          minecraft +
+          " | Discord: " +
+          discord;
+
+        return;
+      }
+
+
+      notePreview.textContent =
+        "GEAEXSMP Donation | Minecraft: " +
+        minecraft;
+    }
+
+
+    /*
+     * Show an error.
+     */
+
+    function showError(message) {
+
+      errorMessage.textContent = message;
+
+      errorMessage.style.display = "block";
+
+    }
+
+
+    /*
+     * Hide the error.
+     */
+
+    function hideError() {
+
+      errorMessage.style.display = "none";
+
+    }
+
+
+    /*
+     * Minecraft username changes.
+     */
+
+    minecraftInput.addEventListener(
+      "input",
+      () => {
+
+        hideError();
+
+        updateNote();
+
+      }
+    );
+
+
+    /*
+     * Discord username changes.
+     */
+
+    discordInput.addEventListener(
+      "input",
+      () => {
+
+        hideError();
+
+        updateNote();
+
+      }
+    );
+
+
+    /*
+     * BNC switch.
+     */
+
+    bncToggle.addEventListener(
+      "change",
+      () => {
+
+        hideError();
+
+        if (bncToggle.checked) {
+
+          discordSection.style.display =
+            "block";
+
+        } else {
+
+          discordSection.style.display =
+            "none";
+
+        }
+
+        updateNote();
+
+      }
+    );
+
+
+    /*
+     * Donation buttons.
+     */
+
+    document
+      .querySelectorAll(".donation-button")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const minecraft =
+              minecraftInput.value.trim();
+
+            const discord =
+              discordInput.value.trim();
+
+            const amount =
+              button.dataset.amount;
+
+
+            /*
+             * Require Minecraft username.
+             */
+
+            if (!minecraft) {
+
+              showError(
+                "Please enter your exact Minecraft username first."
+              );
+
+              minecraftInput.focus();
+
+              return;
+            }
+
+
+            /*
+             * Require Discord if BNC is selected.
+             */
+
+            if (
+              bncToggle.checked &&
+              !discord
+            ) {
+
+              showError(
+                "Please enter your Discord username."
+              );
+
+              discordInput.focus();
+
+              return;
+            }
+
+
+            /*
+             * Build donation note.
+             */
+
+            const note =
+              getDonationNote();
+
+
+            /*
+             * Copy note to clipboard.
+             *
+             * Cash App may not automatically
+             * fill the note, so this makes it
+             * easy for the donor to paste it.
+             */
+
+            if (
+              navigator.clipboard &&
+              window.isSecureContext
+            ) {
+
+              navigator.clipboard
+                .writeText(note)
+                .catch(() => {});
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Your Cash App username is:
+             * $iiGeaex
+             *
+             * The selected amount is added
+             * to the Cash App URL.
+             */
+
+            const cashAppUrl =
+              "https://cash.app/$iiGeaex/" +
+              amount;
+
+
+            /*
+             * Send the donor directly
+             * to Cash App.
+             */
+
+            window.location.href =
+              cashAppUrl;
+
+          }
+        );
+
+      });
+
+
+    /*
+     * Initial note.
+     */
+
+    updateNote();
+
+  </script>
+
+</body>
+</html>
